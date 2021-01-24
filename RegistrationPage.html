@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Registration Page</title>
+    <!-- <script type="text/javascript" src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="css/ui.jqgrid.css">
+    <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.1/themes/Redmond/jquery-ui.css">
+    <script src="js/jquery3.4.0.js"> </script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+    <script src="js/grid.locale-en.js"> </script>
+    <script type="text/javascript" src="js/jquery.jqGrid.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.7.3/black-tie/jquery-ui.min.js"></script>
+</head>
+<style>
+    .classFullPage {
+        height: 700px;
+        display: none;
+    }
+</style>
+<script>
+    $(document).ready(function(){
+       $.save=function(){
+            alert("going");
+            var arrays = $('input:text').map(function () {
+                return this.value;
+            }).get();
+            alert(arrays);
+       }
+    })
+
+       
+    // function save() {
+    //         alert("going");
+    //         var arrays = $('input:text').map(function () {
+    //             return this.value;
+    //         }).get();
+    //         alert(arrays);
+    //     }
+</script>
+
+<body>
+
+    <table id="jqgrid">
+        <tr>
+            <td>Your Name:
+            <td> <input type="text" id="IDname" required> </td> </td>
+        </tr>
+
+        <tr>
+            <td>Enter Password:
+            <td> <input type="text" id="IDPswd" required> </td> </td>
+        </tr>
+
+        <tr>
+            <td> <input type="button" onclick="$.save()" value="save"> </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>

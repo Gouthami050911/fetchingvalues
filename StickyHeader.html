@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>index</title>
+    <!-- <script type="text/javascript" src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="css/ui.jqgrid.css">
+    <link rel="stylesheet" type="text/css" href="menuplugin.css">
+    <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.1/themes/Redmond/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <script src="js/jquery3.4.0.js"> </script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="js/grid.locale-en.js"> </script>
+    <script type="text/javascript" src="js/jquery.jqGrid.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.7.3/black-tie/jquery-ui.min.js"></script>
+</head>
+<style>
+* {
+  box-sizing: border-box;
+}
+body {
+  min-height:1000px;
+}
+
+body, h1, .wrapper {
+  margin: 0;
+  padding: 0;
+}
+
+.site-header {
+  background: grey;
+  height: 50vh;
+  min-height: 200px;
+
+  position:relative;
+}
+
+.hero-text {
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  
+  text-align: center;
+  color: white;
+}
+
+/* 
+.about {
+  text-align: center;
+}
+.about h2 {
+  color:green;
+}
+.about p {
+  display: block;
+  margin: 0 auto;
+  max-width: 700px;
+} */
+
+.sticky {
+  width: 75%;
+  position: fixed;
+  top:0;
+  transform: translate(-50%,0%);
+}
+</style>
+<script>
+$(function(){
+    // Check the initial Poistion of the Sticky Header
+    var stickyHeaderTop = $('#sticky').offset().top;
+    $(window).scroll(function(){
+      
+        if( $(window).scrollTop()  > stickyHeaderTop ) {
+            //$('#sticky').css({position: 'fixed', top: '0px', float: 'right'});
+            $('#sticky').addClass("sticky");
+          $('#sticky h1').css("color","rgb(0,0,0)");
+        } else {
+            $('#sticky').removeClass("sticky");
+          var colorPic = Math.round((1-$(window).scrollTop()/stickyHeaderTop)*255);
+          
+          $('#sticky h1').css("color","rgb("+colorPic+","+colorPic+","+colorPic+")");
+        }
+    });
+});
+</script>
+
+
+<body>
+  <div class="wrapper">
+    <!--site header -->
+    <section class="site-header">
+      <!--company name and desc-->
+      <div class="hero-text" id="sticky">
+        <h1 >Company name</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+      </div>
+    </section>
+
+
+    <!-- <section class="about">
+      <h2>I want to move the company name here</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At quod dolorum doloremque dicta iste a atque iure explicabo? Laborum, magnam?</p>
+    </section> -->
+  </div>
+</body>
+
+</html>
+</body>
+</html>

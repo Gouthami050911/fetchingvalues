@@ -1,0 +1,349 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>index</title>
+    <!-- <script type="text/javascript" src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="css/ui.jqgrid.css">
+    <link rel="stylesheet" type="text/css" href="menuplugin.css">
+    <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.1/themes/Redmond/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <script src="js/jquery3.4.0.js"> </script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="js/grid.locale-en.js"> </script>
+    <script type="text/javascript" src="js/jquery.jqGrid.min.js"></script>
+    <!-- <script src="https://code.jquery.com/ui/1.7.3/black-tie/jquery-ui.min.js"></script> -->
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    .classFullPage {
+        height: 700px;
+        display: none;
+    }
+
+    #firstheader {
+        border: 1px solid black;
+        background-color: #222222;
+        color: black;
+        position: relative;
+    }
+
+    #menu {
+        float: right;
+        position: absolute;
+        left: 60%;
+        right: 0;
+        top: 50px;
+        bottom: 0;
+        
+    }
+    #menuBG{
+        background-color: gray;
+        width: 100%;
+        height: 41px;
+        opacity: 1;
+    }
+</style>
+
+<script>
+   $(document).ready(function () {
+        var UsernameData = ["Admin", "User"];
+        var PwdData = ["Admin123", "User123"];
+
+        $("#IdRegistersSignup").hide();
+        $("#IdUserLogin").hide();
+
+        // on click of menu
+        $(".LoginButton,.Registerbutton").hide();
+            $("#Userloginform").click(function(){
+                $(".LoginButton").show();
+                $(".Registerbutton").show();
+            })
+            
+            // on click login form shows
+        $(".LoginButton").click(function(){ 
+            $("#IdUserLogin").show();
+        });
+
+            //onclick register fomr shows
+        $(".Registerbutton").click(function(){
+            $("#IdUserLogin").hide();
+            $("#IdRegistersSignup").show();
+        })
+
+        $("#IdRegisterSubmit").click(function(){
+            // swal({
+            //     title: "You have successfull registerd",
+            //     icon: "success"
+            // })
+            $("#IdRegistersSignup").hide();
+            $("#IdUserLogin").show();
+            
+        })
+
+        $("#IdAdminLogin").hide();
+            $("#Adminloginform").click(function(){
+                 $("#IdAdminLogin").show();
+      
+        $("#IdAdminSubmit").click(function () {
+                // debugger
+            if (UsernameData.indexOf($("#IdTxtUserName").
+            val()) == PwdData.indexOf($("#IdTxtPwd").val()) && UsernameData.indexOf($("#IdTxtUserName").val()) != -1) {
+                // alert(UsernameData.indexOf($("#IdTxtUserName").val(), 1)) //returns 1 = index value of the array(searched element)
+                alert(UsernameData.indexOf($("#IdTxtUserName").val())!=-1) //returns true if the value is not found in the array
+                // alert(PwdData.indexOf($("#IdTxtPwd").val()))  //returns 0th index  coz index of admin's password is 0
+                $("#IdUserLogin").hide();
+                //  debugger;
+                if (UsernameData.indexOf($("#IdTxtUserName").val()) == 0)   //if there is no username n pswd then this loop excutes & shows the alert and directly ends the loop
+                {
+                    alert("Admin Logged In")
+                    $("#IDAdminPage").show();
+                }
+
+                else {
+                    $("#UserPage").show(); //1st if and checks the 2nd if(user exists) so it wont go inside the loop if excutes this else
+                }
+            } else {
+                alert("Invalid Username/Passwor");  //it checks the 1st condition if it does not match the array element it excutes this else part
+            }
+                 
+ 
+        });
+    });
+
+    // ------------------grid------------------
+        var mydata = [
+            {"FullName": "GouthamiNag", "EmailAddress":"gouthaminag0509@gmail.com", "PhoneNumber":"9886661016",
+             "PickUpAddress":"Bengaluru", "PickUpDate&Time":"2020-12-1", "DropOffAddress":"Mysuru","DropOffDate&Time":"2020-12-2"},
+
+             {"FullName": "GouthamiNag", "EmailAddress":"gouthaminag0509@gmail.com", "PhoneNumber":"9886661016",
+             "PickUpAddress":"Bengaluru", "PickUpDate&Time":"2020-12-1", "DropOffAddress":"Mysuru","DropOffDate&Time":"2020-12-2"},
+            
+             {"FullName": "GouthamiNag", "EmailAddress":"gouthaminag0509@gmail.com", "PhoneNumber":"9886661016",
+             "PickUpAddress":"Bengaluru", "PickUpDate&Time":"2020-12-1", "DropOffAddress":"Mysuru","DropOffDate&Time":"2020-12-2"},
+        ]
+
+        $("#jqgrid").jqGrid({
+            data: mydata,
+            datatype: "local",
+            colModel:[
+                {name: "FullName"},
+                {name: "EmailAddress"},
+                {name: "PhoneNumber"},
+                {name: "PickUpAddress"},
+                {name: "PickUpDate&Time"},
+                {name: "DropOffAddress"},
+                {name: "DropOffDate&Time"},
+            ],
+            caption:"User Grid",
+            pager: "#pager"
+        });
+        $("#IdDataSubmit").click(function () {
+            var Data = {
+                // "Id": '3',
+                "FullName": $("#name").val(),
+                "EmailAddress": $("#EmailId").val(),
+                "PhoneNumber": $("#Phno").val(),
+                "PickUpAddress": $("#PickAddress").val(),
+                "PickUpDate&Time": $("#Pickuptimedate").val(),
+                "DropOffAddress": $("#Dropaddress").val(),
+                "DropOffDate&Time": $("#Droptimedate").val()
+            };
+            // alert(username + addresss + mobile +emailID ) ;
+            $("#jqgrid").addRowData("", Data,);
+            $("#jqgrid2").jqGrid('addRowData', "new", Data);
+        });
+
+        $("#UserPage").hide();
+        $("#IdLoginSubmit").click(function(){
+            debugger;
+            var fetchusername = $("#loginUS").val();
+            var fetchuserpswd = $("#loginpswd").val();
+            var FlagFound = false;
+            arraydata.forEach(element => {
+               // console.log(element.username)
+               if(fetchusername == element.username && fetchuserpswd == element.userpswd )
+               {
+                   
+                   FlagFound = true;
+               }
+               
+            });
+            if(FlagFound){
+                alert("succedd");
+                $("#UserPage").show();
+            }
+            else{
+                alert("invlid us n pssd")
+            }
+       })
+        $(".ClsBtnLogout1").click(function () {  //on click of this user and admin grid both hides and login page displays
+            $("#IDAdminPage").hide();
+            $("#UserPage").hide();
+            $("#IdUserLogin").hide();
+        });
+
+
+        $("#jqgrid2").jqGrid({
+            data: mydata,
+            datatype: "local",
+            colModel: [
+            {name: "Name"},
+                {name: "EmailAddress"},
+                {name: "PhoneNumber"},
+                {name: "PickUpAddress"},
+                {name: "PickUpDate&Time"},
+                {name: "DropOffAddress"},
+                {name: "DropOffDate&Time"},
+            ],
+            caption: "AdminGrid",
+            pager: "#pager",
+        }).jqGrid('navGrid', '#pager')
+        var arraydata = [];
+        $.register= function () {
+                
+                var username = $("#name").val();
+                var userphone =$("#phone").val();
+                var userpswd = $("#pswd").val();
+                var singledata = {username, userphone ,userpswd};
+                arraydata.push(singledata);
+                // console.log(arraydata)
+        }
+
+
+
+        
+    });
+   
+</script>
+
+<body>
+
+    <header>
+        <div id="firstheader">
+            <p>djhcgjdc</p>
+       
+        <div id="menubar"> 
+        <div id="menuBG"> </div>
+        <div id="menu">
+            <ul class="nav">
+                <li><a href="#">Home</a></li>
+                <li class="dropdown"> <a href="#">Login</a>
+                    <ul>
+                        <li id="Userloginform">User Login/Register</a></li>
+                        <li id="Adminloginform"></a>Admin Login</a></li>
+                        
+                    </ul>
+                </li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+    </div>
+    </header>
+
+ <!-- login page -->
+ <button class="LoginButton"> Login</button>
+ <button class="Registerbutton">Register</button>
+
+    <div id="IdRegistersSignup" class="classFullPage">
+        <h3> Enter your details to register</h3>
+        <div>Your Name</div><input id="name" type="text" />
+        <div>PhoneNumber</div><input id="phone" type="text" />
+        <div>City</div><input  type="text" />
+        <div>Password</div><input id="pswd"  type="text" />
+        <input type="button" id="IdRegisterSubmit" onclick="$.register()" value="Submit">
+    </div>
+<!-- login page ends -->
+
+<!-- User Register -->
+    <div id="IdUserLogin" class="classFullPage">
+        <h3>enter your name and password to login</h3>
+        <div>User Name</div><input id="loginUS" type="text" />
+        <div>Password</div><input id="loginpswd"  type="text" /> <br>
+        <input type="button" id="IdLoginSubmit"    value="Submit">
+    </div>
+<!-- User Register ends -->
+
+
+<!-- AdminLogin -->
+<div id="IdAdminLogin" class="">
+    <h3>enter your name and password to login</h3>
+    <div>User Name</div><input id="IdTxtUserName" type="text" />
+    <div>Password</div><input id="IdTxtPwd" type="text" /> <br>
+    <input type="button" id="IdAdminSubmit"  value="Submit">
+</div>
+<!-- AdminLogin ends -->
+
+
+
+<!-- user page  -->
+<div id="UserPage" class="">
+    <button class="ClsBtnLogout1">Logout</button>
+    <table id="jqgrid"></table>
+    <div>
+        <table>
+            <tr>
+                <td> Full Name:
+                <td> <input id="name" type="text"> </td>
+                </td>
+            </tr>
+            <tr>
+                <td> Email Address:
+                <td> <input id="EmailId" type="text"> </td>
+                </td>
+            </tr>
+            <tr>
+                <td> PhoneNumber:
+                <td> <input id="Phno" type="text"> </td>
+                </td>
+            </tr>
+
+            <tr>
+                <td> PickUpAddress:
+                <td> <input id="PickAddress" type="text"> </td>
+                </td>
+            </tr>
+
+            <tr>
+                <td> PickUP Time and Date:
+                <td> <input id="Pickuptimedate" type="text"> </td>
+                </td>
+            </tr>
+
+            <tr>
+                <td> DropOffAddress:
+                <td> <input id="Dropaddress" type="text"> </td>
+                </td>
+            </tr>
+
+            <tr>
+                <td> DropOff Time and Date:
+                <td> <input id="Droptimedate" type="text"> </td>
+                </td>
+            </tr>
+
+            <tr>
+                <td> <button id="IdDataSubmit"> Submit </button> </td>
+            </tr>
+            </tr>
+        </table>
+    </div>
+</div>
+<!-- user page ends -->
+
+<!-- admin page -->
+<div id="IDAdminPage" class="classFullPage">
+    <button class="ClsBtnLogout1">Logout</button>
+    <table id="jqgrid2"></table>
+    <div id="pager"> </div>
+</div>
+<!-- admin page ends -->
+</body>
+</html>

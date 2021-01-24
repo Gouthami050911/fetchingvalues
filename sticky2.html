@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>index</title>
+    <!-- <script type="text/javascript" src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="css/ui.jqgrid.css">
+    <link rel="stylesheet" type="text/css" href="menuplugin.css">
+    <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.1/themes/Redmond/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <script src="js/jquery3.4.0.js"> </script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="js/grid.locale-en.js"> </script>
+    <script type="text/javascript" src="js/jquery.jqGrid.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.7.3/black-tie/jquery-ui.min.js"></script>
+</head>
+
+<style>
+    body { margin: 0; }
+
+section { 
+  height: 2000px;
+  padding-top: 100px; }
+
+.sticky { background: orange; }
+
+.fixed {
+  position: fixed;
+  top:0; left:0;
+  width: 100%; }
+</style>
+
+<script>
+
+$(function(){
+
+
+        $(window).scroll(function(){
+    var sticky = $('.sticky'),
+        scroll = $(window).scrollTop();
+
+  if (scroll >= 100) 
+  {
+      sticky.addClass('fixed');
+      $('.sticky').css("background-color","red");
+  }
+  else
+  {
+       sticky.removeClass('fixed');
+       var colorPic = Math.round((1-$(window).scrollTop()/100)*255);
+          
+          $('.sticky').css("background-color","orange");
+  }
+});
+})
+</script>
+<body>
+    <section>
+        <div class="sticky">This div will stick to the top</div>
+      </section>
+</body>

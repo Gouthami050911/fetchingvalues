@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+    <title>adminlogin</title>
+    <!-- <script type="text/javascript" src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script> -->
+<link rel="stylesheet" type="text/css" href="css/ui.jqgrid.css">
+<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.1/themes/Redmond/jquery-ui.css">
+        <script  src="js/jquery3.4.0.js" > </script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+        <script  src="js/grid.locale-en.js" > </script>
+        <script type="text/javascript" src="js/jquery.jqGrid.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.7.3/black-tie/jquery-ui.min.js"></script>
+</head>
+<script>
+        $(document).ready(function(){
+            // var mydata=[
+            //     {Id: "1",Name: "Gouthami",  Address: "Bengaluru", PhoneNumber: "9886661016", MailID: "gouthami0509@gmail.com"},
+            //     {Id: "2",Name: "Vedavathi",  Address: "Mysuru", PhoneNumber: "8105580386", MailID: "vedavathim@gmail.com"}
+            // ]
+
+            $("#jqgrid").jqGrid({
+                // data: mydata,
+                data: "json",
+                datatype: "userlogin.html",
+                colModel:[
+                    {name: "Id"},
+                    {name: "Name"},
+                    {name: "Address"},
+                    {name: "PhoneNumber"},
+                    {name: "MailID"},
+                ],
+                pager: "#pager",
+
+                
+
+
+            }).jqGrid('navGrid', '#pager')
+
+            $("button").click(function(){
+                var username= $("#name").val()
+                var addresss= $("#address").val()
+                var mobile= $("#Phno").val()
+                var emailID= $("#email").val()
+                alert(username + addresss + mobile +emailID ) 
+                $("#jqgrid").jqGrid('addRowData', rowid, username, addresss, mobile, emailID)
+        })
+        })
+
+
+</script>
+<body>
+    <table id="jqgrid"></table>
+    <div id="pager"> </div>
+
+    <div>
+        <form>
+            <table>
+                <tr>
+                    <td> Name: <td> <input id="name" type="text"> </td> </td> </tr>
+                    <tr> <td> Address:  <td> <input id="address" type="text"> </td> </td></tr>
+                    <tr> <td> PhoneNumber:  <td> <input id="Phno" type="text"> </td> </td></tr>
+                    <tr> <td> MailID:  <td> <input id="email" type="text"> </td> </td></tr>
+                    <tr> <td> <button>Submit </button> </td> </tr>
+                </tr>
+            </table>
+    </form>
+    </div>
+</body>
+
+</html>

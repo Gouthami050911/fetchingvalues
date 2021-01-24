@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Userlogin</title>
+    <!-- <script type="text/javascript" src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="css/ui.jqgrid.css">
+    <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.1/themes/Redmond/jquery-ui.css">
+    <script src="js/jquery3.4.0.js"> </script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+    <script src="js/grid.locale-en.js"> </script>
+    <script type="text/javascript" src="js/jquery.jqGrid.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.7.3/black-tie/jquery-ui.min.js"></script>
+</head>
+<style>
+    .classFullPage {
+        height: 700px;
+        display: none;
+    }
+</style>
+<script>
+    // var indices = [];
+    //     var array = ['a', 'b', 'a', 'c', 'a', 'd'];
+    //     var element = 'a';
+    //     alert(element)
+    //     var idx = array.indexOf(element);
+    //     alert(idx)
+    //     while (idx != -1) {
+    //         alert (idx != 0)
+    //     indices.push(idx);
+    //     idx = array.indexOf(element, idx + 1);
+    //     }
+    //     console.log(indices);
+    // alert(a!=b);
+    // if(a!=b){
+
+    // }else{
+        
+    // }
+
+
+    $(document).ready(function () {
+        var UsernameData = ["Admin", "User"];
+        var PwdData = ["Admin123", "User123"];
+
+        $("#IdUserLogin").show();
+        $("#IdLoginSubmit").click(function () {
+            //  debugger
+            alert("User Name:"+UsernameData.indexOf($("#IdTxtUserName").val())) //returns true if the value is not found in the array
+            // alert("Passowrd"+PwdData.indexOf($("#IdTxtPwd").val()))  //returns 0th index  coz index of admin's password is 0
+
+            if (UsernameData.indexOf($("#IdTxtUserName").
+            val()) == PwdData.indexOf($("#IdTxtPwd").val())  && UsernameData.indexOf($("#IdTxtUserName").val())!=-1) {
+                // alert(UsernameData.indexOf($("#IdTxtUserName").val(), 1)) //returns 1 = index value of the array(searched element)
+                $("#IdUserLogin").hide();
+                //  debugger;
+                if (UsernameData.indexOf($("#IdTxtUserName").val()) == 0)   //if there is no username n pswd then this loop excutes & shows the alert and directly ends the loop
+                {
+                    alert("Admin Logged In")
+                    $("#IDAdminPage").show();
+                }
+
+                else {
+                    $("#UserPage").show(); //1st if and checks the 2nd if(user exists) so it wont go inside the loop if excutes this else
+                }
+            } else {
+                alert("Invalid Username/Passwor");  //it checks the 1st condition if it does not match the array element it excutes this else part
+            }
+        });
+        $(".ClsBtnLogout1").click(function () {  //on click of this user and admin grid both hides and login page displays
+            $("#IDAdminPage").hide();
+            $("#UserPage").hide();
+            $("#IdUserLogin").show();
+        });
+
+        var mydata = [
+            { "Id": "1", "Name": "Gouthami", "Address": "Bengaluru", "PhoneNumber": "9886661016", "MailID": "gouthami0509@gmail.com" },
+            { "Id": "2", "Name": "Vishal", "Address": "Mysuru", "PhoneNumber": "8105580386", "MailID": "vedavathim@gmail.com" }
+        ]
+
+
+        $("#jqgrid").jqGrid({
+            data: mydata,
+            datatype: "local",
+            colModel: [
+                { name: "Id" },
+                { name: "Name" },
+                { name: "Address" },
+                { name: "PhoneNumber" },
+                { name: "MailID" },
+            ],
+            caption: "UserGrid",
+            pager: "#pager",
+        }).jqGrid('navGrid', '#pager')
+
+        $("#IdDataSubmit").click(function () {
+            var Data = {
+                // "Id": '3',
+                "Name": $("#name").val(),
+                "Address": $("#address").val(),
+                "PhoneNumber": $("#Phno").val(),
+                "MailID": $("#email").val()
+            };
+            // alert(username + addresss + mobile +emailID ) ;
+            $("#jqgrid").addRowData("", Data,);
+            $("#jqgrid2").jqGrid('addRowData', "new", Data);
+        });
+
+
+        $("#jqgrid2").jqGrid({
+            data: mydata,
+            datatype: "local",
+            colModel: [
+                { name: "Id" },
+                { name: "Name" },
+                { name: "Address" },
+                { name: "PhoneNumber" },
+                { name: "MailID" },
+            ],
+            caption: "AdminGrid",
+            pager: "#pager",
+        }).jqGrid('navGrid', '#pager')
+    })
+
+
+
+</script>
+
+<body>
+    <!-- login page -->
+    <div id="IdUserLogin" class="classFullPage">
+        <div>User Name</div><input id="IdTxtUserName" type="text" />
+        <div>Password</div><input id="IdTxtPwd" type="text" />
+        <button id="IdLoginSubmit">Submit</button>
+    </div>
+    <!-- login page ends -->
+
+    <!-- user page  -->
+    <div id="UserPage" class="classFullPage">
+        <button class="ClsBtnLogout1">Logout</button>
+        <table id="jqgrid"></table>
+        <div>
+            <table>
+                <tr>
+                    <td> Name:
+                    <td> <input id="name" type="text"> </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td> Address:
+                    <td> <input id="address" type="text"> </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td> PhoneNumber:
+                    <td> <input id="Phno" type="text"> </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td> MailID:
+                    <td> <input id="email" type="text"> </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td> <button id="IdDataSubmit">Submit </button> </td>
+                </tr>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!-- user page ends -->
+
+    <!-- admin page -->
+    <div id="IDAdminPage" class="classFullPage">
+        <button class="ClsBtnLogout1">Logout</button>
+        <table id="jqgrid2"></table>
+        <div id="pager"> </div>
+    </div>
+    <!-- admin page ends -->
+</body>
+</html>
